@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="style.css">
+<title>Ordering System</title>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>School OS</h1>
+    <button id="logout-btn" style="display:none;">Logout</button>
+  </header>
+  <main>
+    <!-- Start Screen -->
+    <section id="start-screen" class="visible">
+      <h2>Enter Your Name</h2>
+      <input type="text" id="name-input" placeholder="Enter your name" autocomplete="off" />
+      <button id="start-submit">Start</button>
+      <div id="start-error"></div>
+    </section>
+
+    <!-- Student Panel -->
+    <section id="student-panel" style="display:none;">
+      <div id="student-store">
+        <h2>Stores</h2>
+        <!-- Store cards will be inserted here -->
+      </div>
+      <div id="student-cart">
+        <h2>Your Cart</h2>
+        <div id="cart-items" aria-live="polite" aria-label="Cart Items"></div>
+        <button id="checkout-btn" disabled>Checkout</button>
+      </div>
+    </section>
+
+    <!-- Checkout popup form -->
+    <div id="checkout-popup" tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="checkout-title">
+      <div id="checkout-form">
+        <span id="close-popup" title="Close">&times;</span>
+        <h3 id="checkout-title">Enter Your Details</h3>
+        <form id="student-info-form">
+          <label for="student-number">Student Number</label>
+          <input type="text" id="student-number" name="studentNumber" inputmode="numeric" required placeholder="e.g. 2021XXXX" autocomplete="off" />
+          <label for="student-section">Section</label>
+          <input type="text" id="student-section" name="section" required placeholder="e.g. CS101" autocomplete="off" />
+          <button type="submit">Submit Order</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Receipt Popup -->
+    <div id="receipt-popup" tabindex="-1" aria-hidden="true" aria-modal="true" role="dialog" aria-labelledby="receipt-title">
+      <div id="receipt">
+        <h3 id="receipt-title">Order Receipt</h3>
+        <p id="receipt-message"></p>
+        <ul id="receipt-products"></ul>
+        <p><strong>Total:</strong> ₱<span id="receipt-total">0.00</span></p>
+        <p><strong>People in queue:</strong> <span id="queue-count">0</span></p>
+        <p><strong>Your Reference No.:</strong> <span id="reference-num"></span></p>
+        <button id="receipt-close-btn">Close</button>
+      </div>
+    </div>
+
+    <!-- Owner Panel -->
+
+    <section id="owner-panel" style="display:none;">
+      <!-- Authentication -->
+      <div id="owner-auth">
+        <h2>Owner</h2>
+        <div class="tab-buttons" role="tablist" aria-label="Owner Authentication Tabs">
+          <button id="login-tab" class="active" role="tab" aria-selected="true" aria-controls="login-form" tabindex="0">Login</button>
+          <button id="register-tab" role="tab" aria-selected="false" aria-controls="register-form" tabindex="-1">Register</button>
+        </div>
+        <form id="login-form" class="owner-form" aria-labelledby="login-tab">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" autocomplete="off" required />
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required />
+          <button type="submit">Login</button>
+          <div id="owner-auth-error"></div>
+        </form>
+        <form id="register-form" class="owner-form" style="display:none;" aria-labelledby="register-tab">
+          <label for="register-username">Username</label>
+          <input type="text" id="register-username" autocomplete="off" required />
+          <label for="register-password">Password</label>
+          <input type="password" id="register-password" required />
+          <label for="store-name-register">Store Name</label>
+          <input type="text" id="store-name-register" autocomplete="off" required />
+          <button type="submit">Register</button>
+          <div id="owner-register-error"></div>
+        </form>
+      </div>
+      <!-- Owner main after login -->
+      <div id="owner-main" style="display:none;">
+        <div id="owner-left">
+          <h2>Your Store Info</h2>
+          <form id="store-name-form">
+            <label for="owner-store-name">Store Name</label>
+            <input type="text" id="owner-store-name" required />
+            <button type="submit">Update Store Name</button>
+          </form>
+          <h2>Products</h2>
+          <div id="owner-products-list" aria-live="polite"></div>
+          <form id="add-product-form" aria-label="Add new product">
+            <input type="text" id="new-product-name" placeholder="Product Name" required autocomplete="off" />
+            <input type="number" id="new-product-price" placeholder="Price (₱)" min="1" required autocomplete="off" />
+            <button type="submit">Add Product</button>
+          </form>
+          <div id="owner-status-note"></div>
+        </div>
+        <div id="owner-right">
+          <h2>Order Requests</h2>
+          <div id="order-requests"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin-panel" style="display:none;">
+      <h2>Admin Panel</h2>
+      <div id="pending-requests">
+        <h3>Pending Owner Requests</h3>
+        <div id="admin-pending-list" aria-live="polite"></div>
+      </div>
+      <div id="manage-stores">
+        <h3>Manage Stores</h3>
+        <div id="admin-stores-list" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="notification-bar" role="alert" aria-live="assertive"></div>
+<script src="script.js"></script>
+</body>
+</html>
